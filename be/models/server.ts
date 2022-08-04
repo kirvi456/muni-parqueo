@@ -1,3 +1,6 @@
+import fs from 'fs'
+import https from 'https'
+
 import express, { Application } from 'express';
 import cors from 'cors';
 
@@ -57,6 +60,20 @@ class Server {
     start() {
         this.app.listen(this.PORT, () => {
             console.log(`Servidor corriendo en puerto ${this.PORT}`)
+        });
+    }
+
+    startHttps(){
+
+        // serve the API with signed certificate on 443 (SSL/HTTPS) port
+        const httpsServer = https.createServer({
+            key:  fs.readFileSync(process.env.CERTIFICATE_KEY || ''),
+            cert: fs.readFileSync(process.env.CERTIFICATE || ''),
+            ca: fs.readFileSync(process.env.CERTIFICATE_CA || ''),
+        }, this.app);
+
+        httpsServer.listen(this.PORT, () => {
+            console.log(`HTTPS Server corriendo en puerto ${this.PORT}`);
         });
     }
 
