@@ -7,7 +7,7 @@ dotenv.config();
 
 const server = new Server();
 
-server.start();
+server.startHttps();
 
 
 
