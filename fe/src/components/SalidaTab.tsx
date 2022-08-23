@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { LoadingButton } from '@mui/lab'
 import { Stack, Typography, TextField, Divider, Grid, Button } from '@mui/material'
 import LogoutIcon from '@mui/icons-material/Logout';
 import { PagoType, Ticket } from '../Types/Ticket';
 import { getFecha, getHora } from '../helpers/Formats';
+import { URLContext } from '../context/URLContext';
 
 
 
@@ -17,6 +18,9 @@ export const SalidaTab = () => {
 
   const [ticketNo, setTicketNo] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+
+
+  const URL = useContext(URLContext)
 
   const handleInputChange = (e :React.ChangeEvent<HTMLInputElement>) => {
     setTicketNo(e.target.value);      
@@ -32,7 +36,7 @@ export const SalidaTab = () => {
     }
     
     setLoading(true);
-    fetch(`http://localhost:8080/api/tickets/salida/${ticketNo}`, {
+      fetch(`${ URL }api/tickets/salida/${ticketNo}`, {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         mode: 'cors', // no-cors, *cors, same-origin
         cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

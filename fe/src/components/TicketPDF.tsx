@@ -26,8 +26,8 @@ export const TicketPDF : React.FC<Ticket & { id : string }> = ({ no, placa, fech
   return (
     <Box id='divImprimir' sx={{width: '300px', margin: 'auto', p: '4px 32px 12px 6px'}}>
       <Stack direction='row' sx={{justifyContent: 'center', alignItems: 'center'}}>
-        <Stack sx={{padding: '12px 0 0 32px'}}>
-          <img src={Escudo} alt='escudo ticket' style={{width: '70px'}} />
+        <Stack sx={{padding: '12px 0 0 32px'}} alignItems='center'>
+          <img src={Escudo} alt='escudo ticket' style={{width: '40px'}} />
           <Typography variant='caption' fontWeight='bold' textAlign='center'>{formatNumber(no)}</Typography>
         </Stack>
         <Stack sx={{flex: '1'}}>
@@ -169,7 +169,10 @@ export const TicketPDF : React.FC<Ticket & { id : string }> = ({ no, placa, fech
             Y DEBERÁ CANCELAR UNA CANTIDAD DE Q20.00
           </Typography>
       </Stack>
-    
+      <Divider></Divider>  
+
+      <Typography variant='h6' sx={{fontSize:'2.7em', fontWeight: 'bold', textAlign: 'center'}}>{ getHora( fechaEntrada ) }</Typography>
+
     </Box>
   )
 }

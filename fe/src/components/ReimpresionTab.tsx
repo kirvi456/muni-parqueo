@@ -1,16 +1,20 @@
 import { LoadingButton } from '@mui/lab';
 import { Alert, Button, Snackbar, Stack, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import SearchIcon from '@mui/icons-material/Search';
 import { Ticket } from '../Types/Ticket';
 import { TicketAdminCard } from './TicketAdminCard';
+import { URLContext } from '../context/URLContext';
 
 export const ReimpresionTab = () => {
   const [option, setOption] = useState<'todos' | 'ultimo'>('ultimo');
   const [inputValue, setInputValue] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [tickets, setTickets] = useState<Ticket[]>([]);
+
+
+  const URL = useContext(URLContext);
 
   const handleInputChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -40,7 +44,7 @@ export const ReimpresionTab = () => {
 
 
   const anularTicket = (no : number) => {
-    fetch(`http://localhost:8080/api/tickets/${no}`, {
+    fetch(`${URL}api/tickets/${no}`, {
       method: 'DELETE', 
       mode: 'cors', 
       cache: 'no-cache', 
@@ -78,7 +82,7 @@ export const ReimpresionTab = () => {
     }
 
     setLoading( true );
-    fetch(`http://localhost:8080/api/tickets/${inputValue.toUpperCase()}${'?limit=' + (option === 'ultimo' ? '1' : '10')}`, {
+    fetch(`${ URL }api/tickets/${inputValue.toUpperCase()}${'?limit=' + (option === 'ultimo' ? '1' : '10')}`, {
       method: 'GET', // *GET, POST, PUT, DELETE, etc.
       mode: 'cors', // no-cors, *cors, same-origin
       cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached

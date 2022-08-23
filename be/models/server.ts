@@ -64,12 +64,12 @@ class Server {
     }
 
     startHttps(){
-
+        console.log(process.env.CERTIFICATE_KEY)
         // serve the API with signed certificate on 443 (SSL/HTTPS) port
         const httpsServer = https.createServer({
             key:  fs.readFileSync(process.env.CERTIFICATE_KEY || ''),
             cert: fs.readFileSync(process.env.CERTIFICATE || ''),
-            ca: fs.readFileSync(process.env.CERTIFICATE_CA || ''),
+            //ca: fs.readFileSync(process.env.CERTIFICATE_CA || ''),
         }, this.app);
 
         httpsServer.listen(this.PORT, () => {
